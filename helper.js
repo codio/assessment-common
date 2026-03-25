@@ -14,9 +14,10 @@ window.codioAssessmentsHelper.METHODS = {
   GET_CONTENT: 'assessments.getContent',
   SET_CONTENT: 'assessments.setContent',
   CALLBACK: 'assessments.callback',
-  CHECK: 'assessments.check',
+  SUBMIT_ANSWER: 'assessments.submitAnswer',
   RESET: 'assessments.reset',
   MODIFY: 'assessments.modify',
+  UNBLOCK: 'assessments.unblock',
 }
 
 window.codioAssessmentsHelper.callbacks = {}
@@ -134,4 +135,9 @@ window.codioAssessmentsHelper.calculateGuidance = (
   }
 
   return showAsTeacher ? guidance : (showGuidance ? answerGuidance : '')
+}
+
+window.codioAssessmentsHelper.isCanAnswerAgain = (assessment, result) => {
+  const usedAttempts = result?.usedAttempts
+  return !assessment.source.maxAttemptsCount || usedAttempts < assessment.source.maxAttemptsCount
 }
