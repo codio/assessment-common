@@ -1,3 +1,9 @@
+.settings-content {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
 .settings-row {
     display: flex;
     flex-direction: column;
