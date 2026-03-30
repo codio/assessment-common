@@ -1,3 +1,11 @@
+body {
+  margin: 0 !important;
+}
+
+.hide {
+  display: none !important;
+}
+
 .codio-assessment {
   padding: 12px 40px 12px 65px;
   margin: 5px;

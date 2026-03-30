@@ -20,6 +20,20 @@ window.codioAssessmentsHelper.METHODS = {
   UNBLOCK: 'assessments.unblock',
 }
 
+window.codioAssessmentsHelper.States = {
+  FAIL: 'fail',
+  PASS: 'pass',
+  RESET: 'reset',
+  PROGRESS: 'progress',
+  PENDING: 'pending'
+}
+
+window.codioAssessmentsHelper.PreviewType = {
+  NONE: 'NONE',
+  MARKDOWN: 'MARKDOWN',
+  RAW: 'RAW'
+}
+
 window.codioAssessmentsHelper.callbacks = {}
 
 window.codioAssessmentsHelper.deferred = () => {
@@ -140,4 +154,21 @@ window.codioAssessmentsHelper.calculateGuidance = (
 window.codioAssessmentsHelper.isCanAnswerAgain = (assessment, result) => {
   const usedAttempts = result?.usedAttempts
   return !assessment.source.maxAttemptsCount || usedAttempts < assessment.source.maxAttemptsCount
+}
+
+const getAssignmentSettings = (assignment) => {
+  return assignment.projectBased?.settings || assignment.bookBased?.settings
+}
+
+window.codioAssessmentsHelper.calculateCompletedAndReleased = (eduStartedAssignmentInfo) => {
+  if (!eduStartedAssignmentInfo) {
+    return false
+  }
+
+  const { assignment, started } = eduStartedAssignmentInfo
+
+  return (
+    started?.completed?.completedAt &&
+    getAssignmentSettings(assignment).releaseGrades
+  )
 }
