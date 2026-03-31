@@ -1,5 +1,13 @@
 window.codioAssessmentsHelper = window.codioAssessmentsHelper || {}
 
+const ICONS = {
+  progress: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity="0.25"/><path fill="currentColor" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>`,
+  check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"/></svg>`,
+  close: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12z"/></svg>`,
+  percent: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m18.5 3.5l-15 15l2 2l15-15M7 4a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m10 10a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>`
+}
+
+
 window.codioAssessmentsHelper.METHODS = {
   GET_SETTINGS: 'assessments.getSettings',
   GET_SETTINGS_RESPONSE: 'assessments.getSettings.response',
@@ -26,6 +34,13 @@ window.codioAssessmentsHelper.States = {
   RESET: 'reset',
   PROGRESS: 'progress',
   PENDING: 'pending'
+}
+
+window.codioAssessmentsHelper.RESULT_STATUS = {
+  PROGRESS: 'progress',
+  FAILED: 'failed',
+  PASSED: 'passed',
+  PARTIAL: 'partial',
 }
 
 window.codioAssessmentsHelper.PreviewType = {
@@ -171,4 +186,82 @@ window.codioAssessmentsHelper.calculateCompletedAndReleased = (eduStartedAssignm
     started?.completed?.completedAt &&
     getAssignmentSettings(assignment).releaseGrades
   )
+}
+
+window.codioAssessmentsHelper.calculateShowExpectedAnswer = (
+  eduStartedAssignment, showExpectedAnswerOption
+) => {
+  const authoringMode = !eduStartedAssignment
+  const isCompletedAndReleased = window.codioAssessmentsHelper.calculateCompletedAndReleased(eduStartedAssignment)
+  let showExpectedAnswer = false
+  if (authoringMode) {
+    if (!showExpectedAnswerOption || showExpectedAnswerOption.type === 'Never') {
+      showExpectedAnswer = false
+    } else if (showExpectedAnswerOption.type === 'Always' || showExpectedAnswerOption.type === 'WhenGradesReleased') {
+      showExpectedAnswer = true
+    }
+    return showExpectedAnswer
+  }
+  if (!showExpectedAnswerOption || showExpectedAnswerOption.type === 'Never') {
+    showExpectedAnswer = false
+  } else if (showExpectedAnswerOption.type === 'Always') {
+    showExpectedAnswer = true
+  } else if (showExpectedAnswerOption.type === 'WhenGradesReleased') {
+    showExpectedAnswer = isCompletedAndReleased
+  }
+  return showExpectedAnswer
+}
+
+window.codioAssessmentsHelper.isPartiallyCorrect = (source, result, processing) => {
+  if (!result) {
+    return false
+  }
+  const state = processing ? window.codioAssessmentsHelper.States.PROGRESS : result.state
+  const {points} = result
+  const isCorrect = state === window.codioAssessmentsHelper.States.PASS
+  const hasPartialPoints = isCorrect && points > 0 && points < source.points
+  return source.arePartialPointsAllowed && hasPartialPoints
+}
+
+window.codioAssessmentsHelper.getAssessmentResultStatus = (source, result, processing) => {
+  const state = processing ? window.codioAssessmentsHelper.States.PROGRESS : result?.state
+  if (state === window.codioAssessmentsHelper.States.PROGRESS) {
+    return window.codioAssessmentsHelper.RESULT_STATUS.PROGRESS
+  }
+  const partial = window.codioAssessmentsHelper.isPartiallyCorrect(source, result, processing)
+  if (partial) {
+    return window.codioAssessmentsHelper.RESULT_STATUS.PARTIAL
+  }
+  switch (state) {
+    case window.codioAssessmentsHelper.States.PASS:
+      return window.codioAssessmentsHelper.RESULT_STATUS.PASS
+    case window.codioAssessmentsHelper.States.FAIL:
+      return window.codioAssessmentsHelper.RESULT_STATUS.FAILED
+    default:
+      return null
+  }
+}
+
+window.codioAssessmentsHelper.getIconByResultStatus = (status) => {
+  switch (status) {
+    case window.codioAssessmentsHelper.RESULT_STATUS.PROGRESS:
+      return ICONS.progress
+    case window.codioAssessmentsHelper.RESULT_STATUS.FAILED:
+      return ICONS.close
+    case window.codioAssessmentsHelper.RESULT_STATUS.PASSED:
+      return ICONS.check
+    case window.codioAssessmentsHelper.RESULT_STATUS.PARTIAL:
+      return ICONS.percent
+    default:
+      return ''
+  }
+}
+
+window.codioAssessmentsHelper.escapeHTML = (unsafe) => {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
 }
