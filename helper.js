@@ -234,7 +234,7 @@ window.codioAssessmentsHelper.getAssessmentResultStatus = (source, result, proce
   }
   switch (state) {
     case window.codioAssessmentsHelper.States.PASS:
-      return window.codioAssessmentsHelper.RESULT_STATUS.PASS
+      return window.codioAssessmentsHelper.RESULT_STATUS.PASSED
     case window.codioAssessmentsHelper.States.FAIL:
       return window.codioAssessmentsHelper.RESULT_STATUS.FAILED
     default:
