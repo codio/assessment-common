@@ -265,3 +265,33 @@ window.codioAssessmentsHelper.escapeHTML = (unsafe) => {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;')
 }
+
+window.codioAssessmentsHelper.GUID = (length) => {
+  function fourChars() {
+    const str = Math.floor(Math.random() * 0x10000 /* 65536 */).toString(16)
+    const pad = '0000'
+    return pad.substring(0, pad.length - str.length) + str
+  }
+
+  if (length) {
+    let ret = fourChars()
+    for (let i = 0; i < length; i++) {
+      ret += '-' + fourChars()
+    }
+    return ret + ''
+  }
+  return (
+    fourChars() +
+    fourChars() +
+    '-' +
+    fourChars() +
+    '-' +
+    fourChars() +
+    '-' +
+    fourChars() +
+    '-' +
+    fourChars() +
+    fourChars() +
+    fourChars()
+  )
+}
