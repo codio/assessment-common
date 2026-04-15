@@ -125,8 +125,8 @@ window.codioAssessmentsHelper.debounce = (func, timeout) => {
   };
 }
 
-window.codioAssessmentsHelper.getButtonCaption = (assessmentOptions, maxAttemptsCount) => {
-  const {usedAttempts, buttonCaption} = assessmentOptions
+window.codioAssessmentsHelper.getButtonCaption = (assessmentOptions, maxAttemptsCount, usedAttempts) => {
+  const {buttonCaption} = assessmentOptions
   let caption = buttonCaption
   if (maxAttemptsCount) {
     const attemptsLeftCount = usedAttempts < maxAttemptsCount ? maxAttemptsCount - usedAttempts : 0
