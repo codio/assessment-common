@@ -2,6 +2,7 @@
     display: flex;
     gap: 10px;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .codio-assessment-settings-row {
@@ -104,4 +105,42 @@
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50%;
+}
+
+.codio-assessment-settings-form-label,
+.codio-assessment-settings-form-input {
+    color: rgba(0, 0, 0, 0.6);
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 1.4em;
+}
+
+.codio-assessment-settings-form-input-container:has(> .codio-assessment-settings-form-input:focus-visible) {
+    position: relative;
+
+    .codio-assessment-settings-form-label {
+        color: #006eb3;
+    }
+    &::before {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: #006eb3;
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+.codio-assessment-settings-form-input {
+    box-sizing: border-box;
+    padding: 16px 12px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    background-color: rgba(0, 0, 0, 0.06);
+
+    &:focus-visible {
+        outline: none;
+    }
 }
