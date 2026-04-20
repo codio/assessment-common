@@ -144,3 +144,48 @@
         outline: none;
     }
 }
+
+.codio-assessment-settings-button {
+    margin: 0;
+    padding: 6px 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    border-radius: 6px;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+    color: rgba(0, 0, 0, 0.26);
+    background-color: rgba(0, 0, 0, 0.12);
+    transition: 0.25s;
+}
+
+.codio-assessment-settings-button--primary:not(:disabled) {
+    color: #fff;
+    background-color: #006eb3;
+
+    &:hover {
+        background-color: #0092db;
+    }
+}
+
+.codio-assessment-settings-button--secondary:not(:disabled) {
+    color: #fff;
+    background-color: #000;
+
+    &:hover {
+        background-color: #343A40;;
+    }
+}
+
+.codio-assessment-settings-button--danger:not(:disabled) {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(240, 67, 73);
+
+    &:hover {
+        background-color: rgb(168, 46, 51);
+    }
+}
