@@ -52,6 +52,12 @@ window.codioAssessmentsHelper.PreviewType = {
   RAW: 'RAW'
 }
 
+window.codioAssessmentsHelper.SCRIPT_GRADE_FORMAT = {
+  TXT: 1,
+  MD: 2,
+  HTML: 3
+}
+
 window.codioAssessmentsHelper.callbacks = {}
 
 window.codioAssessmentsHelper.deferred = () => {
@@ -297,4 +303,13 @@ window.codioAssessmentsHelper.GUID = (length) => {
     fourChars() +
     fourChars()
   )
+}
+
+window.codioAssessmentsHelper.escapeHTML = (unsafe) => {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
 }
