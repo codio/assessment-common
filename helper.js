@@ -26,6 +26,8 @@ window.codioAssessmentsHelper.METHODS = {
   RESET: 'assessments.reset',
   MODIFY: 'assessments.modify',
   UNBLOCK: 'assessments.unblock',
+  GRADE: 'assessments.grade',
+  GRADE_CLOSED: 'assessments.gradeClosed',
   EXPAND: 'assessments.expand',
   COLLAPSE: 'assessments.collapse',
   COLLAPSED: 'assessments.collapsed',

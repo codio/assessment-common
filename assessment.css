@@ -186,3 +186,32 @@ body {
   overflow: auto;
   font-family: monospace;
 }
+
+.codio-assessment-rubrics {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.codio-assessment-rubrics-title {
+  font-weight: 600;
+}
+
+.codio-assessment-rubric-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.codio-assessment-rubric-item-num-minus,
+.codio-assessment-rubric-item-num-plus {
+  font-weight: 600;
+}
+
+.codio-assessment-rubric-item-num-minus {
+  color: #ff0000;
+}
+
+.codio-assessment-rubric-item-num-plus {
+  color: #008000;
+}
