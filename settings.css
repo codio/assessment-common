@@ -26,7 +26,7 @@
     --button-hover-bg-color: #0092db;
     --button-disabled-bg-color: rgba(0, 0, 0, 0.12);
     --button-disabled-color: rgba(0, 0, 0, 0.26);
-    --button-secondary-color: var(--color);
+    --button-secondary-color: #FFF;
     --button-secondary-bg-color: #000;
     --button-secondary-hover-bg-color: #343A40;
     --button-danger-bg-color: var(--danger-color);
@@ -35,6 +35,10 @@
 
     --form-select-focus: var(--primary-color);
     --form-select-arrow: rgb(from var(--color) r g b / 0.42);
+}
+
+.hide {
+    display: none !important;
 }
 
 .codio-assessment-settings-content {

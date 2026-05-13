@@ -19,8 +19,6 @@ window.codioAssessmentsHelper.METHODS = {
   GET_STATE_RESPONSE: 'assessments.getState.response',
   SET_STATE: 'assessments.setState',
   SET_HEIGHT: 'assessments.setHeight',
-  GET_CONTENT: 'assessments.getContent',
-  SET_CONTENT: 'assessments.setContent',
   CALLBACK: 'assessments.callback',
   SUBMIT_ANSWER: 'assessments.submitAnswer',
   RESET: 'assessments.reset',
@@ -31,6 +29,14 @@ window.codioAssessmentsHelper.METHODS = {
   EXPAND: 'assessments.expand',
   COLLAPSE: 'assessments.collapse',
   COLLAPSED: 'assessments.collapsed',
+  CODIO_GET_FILE_CONTENT: 'CODIO.getFileContent',
+  CODIO_GET_FILE_CONTENT_RESPONSE: 'CODIO.getFileContent.response',
+  CODIO_SET_FILE_CONTENT: 'CODIO.setFileContent',
+  CODIO_SET_FILE_CONTENT_RESPONSE: 'CODIO.setFileContent.response',
+  GET_FILE_CONTENT: 'assessments.getFileContent',
+  GET_FILE_CONTENT_RESPONSE: 'assessments.getFileContent.response',
+  SET_FILE_CONTENT: 'assessments.setFileContent',
+  SET_FILE_CONTENT_RESPONSE: 'assessments.setFileContent.response'
 }
 
 window.codioAssessmentsHelper.States = {
