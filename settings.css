@@ -55,6 +55,10 @@
     gap: 6px;
 }
 
+.codio-assessment-settings-form-control--fillWidth {
+    flex: 1;
+}
+
 .codio-assessment-settings-form-label,
 .codio-assessment-settings-form-input {
     color: var(--form-label-color);

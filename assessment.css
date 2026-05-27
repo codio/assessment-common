@@ -141,6 +141,7 @@ body {
 
 .codio-assessment-result-result-info-container {
   flex: 1;
+  overflow: auto;
 }
 
 .codio-assessment-last-run-time {
