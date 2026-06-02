@@ -53,6 +53,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    position: relative;
 }
 
 .codio-assessment-settings-form-control--fillWidth {
@@ -66,19 +67,34 @@
     line-height: 1.4em;
 }
 
-.codio-assessment-settings-form-input-container:has(> .codio-assessment-settings-form-input:focus-visible) {
+.codio-assessment-settings-form-input-container {
     position: relative;
+    display: flex;
 
-    .codio-assessment-settings-form-label {
-        color: var(--form-input-label-active-color);
-    }
-    &::before {
-        content: "";
+    input, textarea {
         width: 100%;
-        height: 2px;
-        background-color: var(--form-input-active-indicator);
-        position: absolute;
-        bottom: 0;
+    }
+}
+
+.codio-assessment-settings-form-select-wrapper {
+    position: relative;
+}
+
+.codio-assessment-settings-form-control {
+    &:has(.codio-assessment-settings-form-input:focus-visible),
+    &:has(.codio-assessment-settings-form-select:focus-visible) {
+        .codio-assessment-settings-form-label {
+            color: var(--form-input-label-active-color);
+        }
+        .codio-assessment-settings-form-input-container::before,
+        .codio-assessment-settings-form-select-wrapper::before {
+            content: "";
+            width: 100%;
+            height: 2px;
+            background-color: var(--form-input-active-indicator);
+            position: absolute;
+            bottom: 0;
+        }
     }
 }
 
@@ -293,23 +309,5 @@
     &:has(> .codio-assessment-settings-form-select:disabled) {
         cursor: not-allowed;
         background-color: #eee;
-    }
-}
-
-.codio-assessment-settings-form-select-container:has(.codio-assessment-settings-form-select:focus-visible) {
-    .codio-assessment-settings-form-label {
-        color: var(--form-input-label-active-color);
-    }
-
-    position: relative;
-
-    &::before {
-        content: "";
-        width: 100%;
-        height: 2px;
-        background-color: var(--form-input-active-indicator);
-        position: absolute;
-        bottom: 0;
-        z-index: 1;
     }
 }
