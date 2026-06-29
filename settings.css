@@ -1,0 +1,321 @@
+:root {
+    --primary-color: #006eb3;
+    --secondary-color: #9747ff;
+    --danger-color: #F04349;
+    --color: #000;
+    --bg-color: #fff;
+    --font-family: Inter, sans-serif;
+    --border-radius: 6px;
+
+    --form-label-color: rgb(from var(--color) r g b / 0.6);
+
+    --form-input-bg-color: rgb(from var(--color) r g b / 0.06);
+    --form-input-border-color: rgb(from var(--color) r g b / 0.42);
+    --form-input-label-active-color: var(--primary-color);
+    --form-input-active-indicator: var(--primary-color);
+
+    --form-radio-focus-color: var(--primary-color);
+    --form-radio-color: var(--primary-color);
+
+    --form-toggle-active-bg: var(--primary-color);
+    --form-toggle-bg-color: #ADB5BD;
+    --form-toggle-thumb-color: var(--bg-color);
+
+    --button-bg-color: var(--primary-color);
+    --button-color: #fff;
+    --button-hover-bg-color: #0092db;
+    --button-disabled-bg-color: rgba(0, 0, 0, 0.12);
+    --button-disabled-color: rgba(0, 0, 0, 0.26);
+    --button-secondary-color: #FFF;
+    --button-secondary-bg-color: #000;
+    --button-secondary-hover-bg-color: #343A40;
+    --button-danger-bg-color: var(--danger-color);
+    --button-danger-color: rgb(from var(--color) r g b / 0.87);
+    --button-danger-hover-bg-color: #A82E33;
+
+    --form-select-focus: var(--primary-color);
+    --form-select-arrow: rgb(from var(--color) r g b / 0.42);
+}
+
+.hide {
+    display: none !important;
+}
+
+.codio-assessment-settings-content {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-family: var(--font-family), sans-serif;
+}
+
+.codio-assessment-settings-form-control {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+}
+
+.codio-assessment-settings-form-control--fillWidth {
+    flex: 1;
+}
+
+.codio-assessment-settings-form-label,
+.codio-assessment-settings-form-input {
+    color: var(--form-label-color);
+    font-weight: 400;
+    line-height: 1.4em;
+}
+
+.codio-assessment-settings-form-input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    input, textarea {
+        width: 100%;
+    }
+}
+
+.codio-assessment-settings-form-select-wrapper {
+    position: relative;
+}
+
+.codio-assessment-settings-form-input-container .TinyMDE {
+    height: 100px;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+
+.codio-assessment-settings-form-control {
+    &:has(.codio-assessment-settings-form-input:focus-visible),
+    &:has(.TinyMDE:focus-visible),
+    &:has(.codio-assessment-settings-form-select:focus-visible) {
+        .codio-assessment-settings-form-label {
+            color: var(--form-input-label-active-color);
+        }
+        .codio-assessment-settings-form-input-container::before,
+        .codio-assessment-settings-form-select-wrapper::before {
+            content: "";
+            width: 100%;
+            height: 2px;
+            background-color: var(--form-input-active-indicator);
+            position: absolute;
+            bottom: 0;
+        }
+    }
+}
+
+.codio-assessment-settings-form-input {
+    box-sizing: border-box;
+    padding: 16px 12px;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border: none;
+    border-bottom: 1px solid var(--form-input-border-color);
+    background-color: var(--form-input-bg-color);
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.codio-assessment-settings-form-radio {
+    display: flex;
+    &:focus-within {
+        color: var(--form-radio-focus-color);
+    }
+    input[type="radio"] {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+
+        font: inherit;
+        color: currentColor;
+        width: 1.15em;
+        height: 1.15em;
+        border: 0.15em solid currentColor;
+        border-radius: 50%;
+        transform: translateY(-0.075em);
+    }
+
+    input[type="radio"]::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em var(--form-radio-color);
+        background-color: CanvasText;
+        position: absolute;
+        top: 0.1em;
+        left: 0.1em;
+    }
+
+    input[type="radio"]:checked::before {
+        transform: scale(1);
+    }
+
+    input[type="radio"]:focus {
+        outline: max(2px, 0.15em) solid currentColor;
+        outline-offset: max(2px, 0.15em);
+    }
+}
+
+.codio-assessment-settings-form-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+
+    input:checked + .codio-assessment-settings-form-toggle-slider {
+        background-color: var(--form-toggle-active-bg);
+    }
+
+    input:focus + .codio-assessment-settings-form-toggle-slider {
+        box-shadow: 0 0 4px var(--form-toggle-active-bg);
+    }
+
+    input:checked + .codio-assessment-settings-form-toggle-slider:before {
+        -webkit-transform: translateX(17px);
+        -ms-transform: translateX(17px);
+        transform: translateX(17px);
+    }
+}
+
+.codio-assessment-settings-form-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.codio-assessment-settings-form-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--form-toggle-bg-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 11px;
+}
+
+.codio-assessment-settings-form-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--form-toggle-thumb-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.codio-assessment-settings-button {
+    margin: 0;
+    padding: 6px 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    border-radius: 6px;
+    transition: 0.25s;
+    color: var(--button-color);
+    background-color: var(--button-bg-color);
+    &:hover {
+        background-color: var(--button-hover-bg-color);
+    }
+}
+
+.codio-assessment-settings-button:disabled {
+    cursor: not-allowed;
+    color: var(--button-disabled-color);
+    background-color: var(--button-disabled-bg-color);
+}
+
+.codio-assessment-settings-button--primary:not(:disabled) {
+}
+
+.codio-assessment-settings-button--secondary:not(:disabled) {
+    color: var(--button-secondary-color);
+    background-color: var(--button-secondary-bg-color);
+
+    &:hover {
+        background-color: var(--button-secondary-hover-bg-color);
+    }
+}
+
+.codio-assessment-settings-button--danger:not(:disabled) {
+    color: var(--button-danger-color);
+    background-color: var(--button-danger-bg-color);
+
+    &:hover {
+        background-color: var(--button-danger-hover-bg-color);
+    }
+}
+
+.codio-assessment-settings-form-select-wrapper {
+    border-bottom: 1px solid var(--form-input-border-color);
+    background-color: var(--form-input-bg-color);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    padding: 16px 12px;
+    min-width: 15ch;
+    cursor: pointer;
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    position: relative;
+
+    .codio-assessment-settings-form-select,
+    &::after {
+        grid-area: select;
+    }
+
+    .codio-assessment-settings-form-select {
+        appearance: none;
+        background-color: transparent;
+        border: none;
+        padding: 0 1em 0 0;
+        margin: 0;
+        width: 100%;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: inherit;
+        line-height: inherit;
+
+        z-index: 1;
+        outline: none;
+    }
+
+    &:not(.codio-assessment-settings-form-select--multiple)::after {
+        content: "";
+        justify-self: end;
+        width: 0.8em;
+        height: 0.5em;
+        background-color: var(--form-select-arrow);
+        clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    }
+
+    .codio-assessment-settings-form-select[multiple] {
+        padding-right: 0;
+        height: 6rem;
+
+        option {
+            white-space: normal;
+            outline-color: var(--form-select-focus);
+            padding: 6px 0;
+        }
+    }
+
+    &:has(> .codio-assessment-settings-form-select:disabled) {
+        cursor: not-allowed;
+        background-color: #eee;
+    }
+}
