@@ -26,6 +26,7 @@ window.codioAssessmentsHelper.METHODS = {
   UNBLOCK: 'assessments.unblock',
   GRADE: 'assessments.grade',
   GRADE_CLOSED: 'assessments.gradeClosed',
+  APPLY_GRADE: 'assessments.applyGrade',
   EXPAND: 'assessments.expand',
   COLLAPSE: 'assessments.collapse',
   COLLAPSED: 'assessments.collapsed',
@@ -320,4 +321,45 @@ window.codioAssessmentsHelper.escapeHTML = (unsafe) => {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;')
+}
+
+// return TinyMDE editor instance or null if no global TinyMDE object
+// https://github.com/jefago/tiny-markdown-editor/
+window.codioAssessmentsHelper.initializeMarkdownEditor = (taId, barId) => {
+  if (!TinyMDE) {
+    return null
+  }
+  const tinyMDE = new TinyMDE.Editor({textarea: taId});
+  if (!barId) {
+    return tinyMDE
+  }
+  const detailsCommand = {
+    name: 'Details',
+    title: 'Insert Summary/Details tag',
+    innerHTML: '<b>&gt;</b>',
+    action: editor => editor.wrapSelection('<details>\n  <summary>\n     Header\n  </summary>\n', '\n</details>')
+  }
+  const tableCommand = {
+    name: 'Table',
+    title: 'Insert table',
+    innerHTML: '<b>T</b>',
+    action: editor => {
+      const selectionAnchor = editor.getSelection()
+      if (!selectionAnchor) {
+        return
+      }
+      editor.paste('\n| Title 1 | Title 2  |\n|---------|----------|\n| Content | Content  |\n', selectionAnchor)
+    }
+  }
+  new TinyMDE.CommandBar({
+    element: barId,
+    editor: tinyMDE,
+    commands: [
+      detailsCommand,
+      '|', 'bold', 'italic', 'h1', 'strikethrough',
+      '|', 'ul', 'ol', tableCommand,
+      '|', 'blockquote', 'code', 'insertLink', 'insertImage'
+    ]
+  });
+  return tinyMDE
 }

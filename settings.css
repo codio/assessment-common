@@ -70,6 +70,7 @@
 .codio-assessment-settings-form-input-container {
     position: relative;
     display: flex;
+    flex-direction: column;
 
     input, textarea {
         width: 100%;
@@ -80,8 +81,15 @@
     position: relative;
 }
 
+.codio-assessment-settings-form-input-container .TinyMDE {
+    height: 100px;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+
 .codio-assessment-settings-form-control {
     &:has(.codio-assessment-settings-form-input:focus-visible),
+    &:has(.TinyMDE:focus-visible),
     &:has(.codio-assessment-settings-form-select:focus-visible) {
         .codio-assessment-settings-form-label {
             color: var(--form-input-label-active-color);
